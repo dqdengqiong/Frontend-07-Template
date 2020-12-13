@@ -119,27 +119,49 @@
 		}
 
 		class Heap{
-	        constructor(arr){
-	            this.data = [...arr];
+	        constructor(data,compare){
+	            this.data = [...data];
 	            this.size = this.data.length;
+	            this.compare = compare || ((a,b) => a - b);
 	        }
 
 	        take(){
 				if(!this.data.length) return;
 
 				let min = this.data[0];
-				let i = 0;
+				let parentIndex = 0;
 
-				while(i < this.data.length){
-					if(i * 2 + 1 >= this.data.length) return;
-					if()
+				while(parentIndex < this.data.length){
+					if(parentIndex * 2 + 1 >= this.data.length) 
+						break;
+					if(parentIndex * 2 + 2 >= this.data.length)
+						this.data[parentIndex] = this.data[parentIndex * 2 + 2];
+						parentIndex = parentIndex * 2  + 1;
+						break;
+					if(this.compare(parentIndex * 2 + 1) - this.compare(parentIndex * 2 + 2)){
+						this.data[parentIndex]  = this.data[parentIndex * 2 + 1];
+						parentIndex = parentIndex * 2  + 1;
+					}else{
+						this.data[parentIndex]  = this.data[parentIndex * 2 + 2];
+						parentIndex = parentIndex * 2  + 2;
+					}
+				}
+
+				if(parentIndex < this.data.length - 1){
+					this.insertAt(parentIndex,this.data.pop());
+				}else{
+					this.data.pop();
 				}
 
 				return min;
 			}
 
+			insertAt(i,v){
+				this.data[i] = v;
+			}
+
 			give(v){
-				this.data.push(v);
+				
 			}
 
 			get length(){
