@@ -124,7 +124,34 @@
 	            this.size = this.data.length;
 	            this.compare = compare || ((a,b) => a - b);
 	        }
+	        //找到左节点
+	        getLeftIndex(index) {
+			    return 2 * index + 1;
+			}
+	        //找到右节点
+	        getRightIndex(index) {
+			    return 2 * index + 2;
+			}
+	        //找到父节点
+	        getParentIndex(index) {
+			    if(index === 0) {
+			      return undefined;
+			    }
+			    //如果当前节点不是根节点
+			    return Math.floor((index - 1) / 2);
+			}
 
+			//插入
+			insertAt(i,v){
+				this.data[i] = v;
+			}
+
+			//调整堆的顺序
+			shiftUp(){
+
+			}
+
+	        //取最小的值
 	        take(){
 				if(!this.data.length) return;
 
@@ -138,7 +165,7 @@
 						this.data[parentIndex] = this.data[parentIndex * 2 + 2];
 						parentIndex = parentIndex * 2  + 1;
 						break;
-					if(this.compare(parentIndex * 2 + 1) - this.compare(parentIndex * 2 + 2)){
+					if(this.compare(this.data[parentIndex * 2 + 1] - this.data[parentIndex * 2 + 2]){
 						this.data[parentIndex]  = this.data[parentIndex * 2 + 1];
 						parentIndex = parentIndex * 2  + 1;
 					}else{
@@ -154,10 +181,6 @@
 				}
 
 				return min;
-			}
-
-			insertAt(i,v){
-				this.data[i] = v;
 			}
 
 			give(v){
