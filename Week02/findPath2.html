@@ -142,12 +142,22 @@
 			}
 
 			//插入
-			insertAt(i,v){
-				this.data[i] = v;
+			insertAt(v){
+				tf(value != null) {
+				    this.data.push(value);
+				    this.siftUp(this.data.length - 1);
+				    return true;
+			    }
+			    return false;
 			}
 
-			//调整堆的顺序
+			//插入调整堆的顺序
 			shiftUp(){
+
+			}
+
+			//取出最小值后重新排序
+			shiftDown(){
 
 			}
 
