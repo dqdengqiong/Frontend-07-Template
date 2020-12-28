@@ -5,8 +5,19 @@
 </head>
 <body>
 	<script type="text/javascript">
-		function find(source,partner){
+		function find(source,partnern){
+			let table = new Array(partnern.length).fill(0)
 
+			let k = 0
+
+			for (var i = partnern.length - 1; i >= 0; i--) {
+				if(partnern[i] === partnern[k]){
+					k++
+				}else{
+					k = 0
+				}
+				table[j] = k
+			}
 		}
 		
 	</script>
