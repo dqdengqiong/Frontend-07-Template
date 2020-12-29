@@ -5,20 +5,53 @@
 </head>
 <body>
 	<script type="text/javascript">
-		function find(source,partnern){
+		function kmp(source,partnern){
+			if(!partnern.length) 
+				return 0
+
 			let table = new Array(partnern.length).fill(0)
 
-			let k = 0
+			{
+				let i = 0, j = 1
 
-			for (var i = partnern.length - 1; i >= 0; i--) {
-				if(partnern[i] === partnern[k]){
-					k++
-				}else{
-					k = 0
+				while(j < partnern.length) {
+					if(partnern[i] === partnern[j]){
+						++i
+						++j
+						table[j] = i
+					}else{
+						if(i === 0){
+							j++
+						}else{
+							i = table[i]
+						}
+					}
 				}
-				table[j] = k
+			
 			}
+
+			{
+				let i = 0, j = 0
+				while  (i < source.length) {
+					if(source[i] === partnern[j]){
+						j++
+						i++
+					}else{
+						if(j > 0)
+							j = table[j]
+						else
+							i++
+					}
+					if(j === partnern.length){
+						//return i - partnern.length
+						return true
+					}
+				}
+				return -1
+			}	
 		}
+		
+		console.log(kmp('aabaaabaab','aa'))
 		
 	</script>
 </body>
