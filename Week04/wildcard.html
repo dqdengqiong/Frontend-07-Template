@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wildcard算法</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function wildCard(source,partnern){
+			let startCount = 0
+
+			for(let i = 0; i < partnern.length; i++){
+				if(partnern[i] === '*'){
+					startCount++
+				}
+			}
+			
+			if(startCount === 0){
+				for (var i = 0; i < partnern.length; i++) {
+					if(partnern[i] != source[i] && partnern[i] !== '?')
+						return false
+				}
+				return
+			}
+
+			let i = 0
+			let lastIndex = 0
+
+			for (var i = 0; partnern[i] !== '*'; i++) {
+				if(partnern[i] != source[i] && partnern[i] !== '?')
+					return false
+			}
+
+			lastIndex = i
+
+			for (var p = 0; p < startCount - 1; p++) {
+				i++
+				let subParttnern = ''
+				while(parttnern[i] !== '*'){
+					subParttnern += partnern[i]
+					i++
+				}
+				let reg = new RegExp(subParttnern.replace(/\?/g,'[\\s\\s]'),'g')
+				reg.lastIndex = lastIndex
+
+				if(!reg.exec(source)){
+					return false
+				}
+				lastIndex = reg.lastIndex
+
+			}
+
+			for (var j = 0; j <= source.length - lastIndex && partnern[partnern.length - j] !== '*'; j++) {
+				if(partnern[partnern.length - 1] !== source[source.length - 1] && partnern[partnern,length - j] !== '?'){
+					return false
+				}
+			}
+			return true
+			
+		}
+
+
+		
+		console.log(kmp('aabaaabaab','aa'))
+		
+	</script>
+</body>
+</html>
